@@ -73,7 +73,9 @@ GSegment >> distanceTo: aGPoint [
 
 	| ab ap t proj distance |
 
+	distance := SmallInteger maxVal.
 	ab := (v2 asPoint) - (v1 asPoint).
+	ab isZero ifTrue:[^distance].
 	ap := (aGPoint asPoint) - (v1 asPoint).
 	t := (ab dotProduct: ap) / (ab dotProduct: ab).
 	t := (t max: 0) min: 1.
