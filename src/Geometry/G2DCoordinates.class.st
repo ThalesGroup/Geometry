@@ -14,17 +14,19 @@ Examples
 	G2DCoordinates x: 1 y: 2
 "
 Class {
-	#name : #G2DCoordinates,
-	#superclass : #GCoordinates,
-	#category : #'Geometry-Core'
+	#name : 'G2DCoordinates',
+	#superclass : 'GCoordinates',
+	#category : 'Geometry-Core',
+	#package : 'Geometry',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 G2DCoordinates class >> numberOfDimensions [
 	^ 2
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 G2DCoordinates class >> x: aNumber y: anotherNumber [
 	^ self new
 		x: aNumber;

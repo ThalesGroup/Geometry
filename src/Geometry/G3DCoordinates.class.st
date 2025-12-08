@@ -14,17 +14,19 @@ Examples
 	G2DCoordinates x: 1 y: 2 z: 3
 "
 Class {
-	#name : #G3DCoordinates,
-	#superclass : #GCoordinates,
-	#category : #'Geometry-Core'
+	#name : 'G3DCoordinates',
+	#superclass : 'GCoordinates',
+	#category : 'Geometry-Core',
+	#package : 'Geometry',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 G3DCoordinates class >> numberOfDimensions [
 	^ 3
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 G3DCoordinates class >> x: aNumber y: anotherNumber z: thirdNumber [
 	^ self new
 		x: aNumber;
@@ -33,12 +35,12 @@ G3DCoordinates class >> x: aNumber y: anotherNumber z: thirdNumber [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 G3DCoordinates >> z [
 	^ coordinates at: 3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 G3DCoordinates >> z: aNumber [
 	^ coordinates at: 3 put: aNumber
 ]

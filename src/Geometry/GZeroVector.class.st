@@ -5,24 +5,26 @@ Description
 	I represent the zero vector that is a vector of length 0 and the only vector without direction.
 "
 Class {
-	#name : #GZeroVector,
-	#superclass : #GVector,
-	#category : #'Geometry-Core'
+	#name : 'GZeroVector',
+	#superclass : 'GVector',
+	#category : 'Geometry-Core',
+	#package : 'Geometry',
+	#tag : 'Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GZeroVector class >> coordinates: aCoordinates [
 	^ self new
 		coordinates: aCoordinates;
 		yourself
 ]
 
-{ #category : #arithmetic }
+{ #category : 'arithmetic' }
 GZeroVector >> angleWith: aGVector [
 	^ 0 rads
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GZeroVector >> isZeroVector [
 	^ true
 ]

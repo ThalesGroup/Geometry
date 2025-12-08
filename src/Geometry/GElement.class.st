@@ -16,17 +16,19 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #GElement,
-	#superclass : #GeometryObject,
-	#category : #'Geometry-Elements'
+	#name : 'GElement',
+	#superclass : 'GeometryObject',
+	#category : 'Geometry-Elements',
+	#package : 'Geometry',
+	#tag : 'Elements'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement class >> isAbstract [
 	^ self = GElement
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement >> boundaryContains: aPoint [
 	"Should return true if the boundaries of the element contains the point. Else it should return false.
 	
@@ -35,17 +37,17 @@ GElement >> boundaryContains: aPoint [
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement >> boundaryContainsAny: points [
 	^ points anySatisfy: [ :point | self boundaryContains: point ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement >> boundaryContainsWhichOf: points [
 	^ points select: [ :point | self boundaryContains: point ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement >> contains: aPoint [
 	"Return true if the element includes the argument but not in its boundaries.
 	
@@ -55,7 +57,7 @@ GElement >> contains: aPoint [
 	^ (self includes: aPoint) and: [ (self boundaryContains: aPoint) not ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 GElement >> includes: aPoint [
 	"I should return true if the points is contained in the element including the boundaries. Else I will answer false."
 
@@ -63,53 +65,53 @@ GElement >> includes: aPoint [
 	^ self subclassResponsibility
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWith: anElement [
 	"We should use double dispatch to find intersection points"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithArc: anArc [
 	^ (self intersectionsWithEllipse: (GCircle center: anArc center radius: anArc radius)) select: [ :point | anArc includes: point ]
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithEllipse: aGEllipse [
 	"I should return the intersection points between me and an ellipse"
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithLine: aGLine [
 	"I should return the intersection points between me and a line"
 	
 	^ self subclassResponsibility
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithPoint: aPoint [
 	^ (self boundaryContains: aPoint) ifTrue: [ {aPoint} ] ifFalse: [ {} ]
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithPolygon: aGPolygon [
 	^ (aGPolygon edges flatCollect: [ :segment | segment intersectionsWith: self ]) asSet
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithRay: aGRay [
 	^ (aGRay asGLine intersectionsWith: self) select: [ :point | aGRay includes: point ]
 ]
 
-{ #category : #intersections }
+{ #category : 'intersections' }
 GElement >> intersectionsWithSegment: aGSegment [
 	^ (aGSegment asGLine intersectionsWith: self) select: [ :point | aGSegment includes: point ]
 ]
 
-{ #category : #transforming }
+{ #category : 'transforming' }
 GElement >> translateBy: aPoint [
 	"Translate the shape by a delta defined by a point."
 	
