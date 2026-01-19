@@ -5,9 +5,7 @@ Description
 I am a common exception for the Geometry project
 "
 Class {
-	#name : 'GeometryError',
-	#superclass : 'Error',
-	#category : 'Geometry-Exceptions',
-	#package : 'Geometry',
-	#tag : 'Exceptions'
+	#name : #GeometryError,
+	#superclass : #Error,
+	#category : #'Geometry-Exceptions'
 }

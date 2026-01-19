@@ -1,58 +1,56 @@
 Trait {
-	#name : 'TGWithCoordinates',
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#name : #TGWithCoordinates,
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> coordinates [
 	^ self explicitRequirement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> coordinates: gCoordinates [
 	^ self explicitRequirement
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 TGWithCoordinates >> coordinatesWith: aCollection collect: aBlock [
 	^ self coordinates coordinatesWith: aCollection coordinates collect: aBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 TGWithCoordinates >> coordinatesWith: aCollection do: aBlock [
 	self coordinates coordinatesWith: aCollection coordinates do: aBlock
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 TGWithCoordinates >> postCopy [
 	super postCopy.
 	self coordinates: self coordinates copy
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 TGWithCoordinates >> printOn: aStream [
 	super printOn: aStream.
 	self coordinates printCoordinatesOn: aStream
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> x [
 	^ self coordinates x
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> x: aNumber [ 
 	self coordinates x: aNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> y [
 	^ self coordinates y
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TGWithCoordinates >> y: aNumber [ 
 	self coordinates y: aNumber
 ]

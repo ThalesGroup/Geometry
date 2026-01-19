@@ -5,39 +5,37 @@ a * (x^2) + a * (y^2) + d * x + e * y + f = 0
 
 "
 Class {
-	#name : 'GCircle',
-	#superclass : 'GEllipse',
-	#category : 'Geometry-Shapes',
-	#package : 'Geometry',
-	#tag : 'Shapes'
+	#name : #GCircle,
+	#superclass : #GEllipse,
+	#category : #'Geometry-Shapes'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GCircle class >> center: aPoint1 radius: aNumber [
 	^ self center: aPoint1 vertex: aPoint1 x , (aPoint1 y + aNumber) coVertex: aPoint1 x + aNumber , aPoint1 y
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GCircle >> boundaryContains: aPoint [
 	^ self radius =~ (self center distanceTo: aPoint)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCircle >> perimeter [
 	^ 2π * self radius
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GCircle >> printOn: aStream [
 	aStream nextPutAll: ('x² + y² = {1}²' format: {self radius})
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCircle >> radius [
 	^ self semiMajorAxisLength
 ]
 
-{ #category : 'public interface' }
+{ #category : #'public interface' }
 GCircle >> upperPoint [
 	^ center x , ( center y + self radius )
 ]

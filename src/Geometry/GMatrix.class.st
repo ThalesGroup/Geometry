@@ -15,24 +15,22 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GMatrix',
-	#superclass : 'GeometryObject',
+	#name : #GMatrix,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'rows'
 	],
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GMatrix class >> rows: aCollection [
 	^ self new
 		rows: aCollection;
 		yourself
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GMatrix >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -41,35 +39,35 @@ GMatrix >> = anObject [
 	^ rows = anObject rows
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GMatrix >> at: anInteger [
 	^ self rows at: anInteger
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GMatrix >> at: anInteger at: anInteger2 [ 
 	^ (self at: anInteger) at: anInteger2
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GMatrix >> determinant [
 	self flag: #todo.	"For now this implementation is only for 2D squared matrix. We should later manage n-dimensions matrix"
 	^ (self at: 1 at: 1) * (self at: 2 at: 2) - ((self at: 1 at: 2) * (self at: 2 at: 1))
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GMatrix >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ rows hash negated
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GMatrix >> rows [
 	^ rows
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GMatrix >> rows: anObject [
 	rows := anObject
 ]

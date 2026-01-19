@@ -33,29 +33,27 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GCoordinates',
-	#superclass : 'GeometryObject',
+	#name : #GCoordinates,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'coordinates'
 	],
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GCoordinates class >> newWithCoordinates: aCollection [
 	^ self basicNew
 		initializeWith: aCollection;
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates class >> numberOfDimensions [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GCoordinates class >> withCollection: aCollection [
 	^ self allSubclasses
 		detect: [ :e | e numberOfDimensions = aCollection size ]
@@ -66,7 +64,7 @@ GCoordinates class >> withCollection: aCollection [
 		ifNone: [ self error: 'This amount of coordinated is not yet managed.' ]
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GCoordinates >> * aNumber [
 	"Answer a Point that is the multiplication of the receiver and arg."
 
@@ -75,7 +73,7 @@ GCoordinates >> * aNumber [
 	^ self class newWithCoordinates: (self coordinatesCollect: [ :number | number * aNumber ])
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GCoordinates >> + otherCoordinates [ 
 	"Answer a Point that is the sum of the receiver and arg."
 	self numberOfDimensions = otherCoordinates numberOfDimensions ifFalse: [ self error: 'For now we accept only addition of coordinates from the same dimension. We will see later if we should do more.' ].
@@ -83,7 +81,7 @@ GCoordinates >> + otherCoordinates [
 	^ self class newWithCoordinates: (otherCoordinates coordinatesWith: coordinates collect: [ :number1 :number2 | number1 + number2 ])
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GCoordinates >> - otherCoordinates [ 
 	"Answer a Point that is the substraction of the receiver and arg."
 	self numberOfDimensions = otherCoordinates numberOfDimensions ifFalse: [ self error: 'For now we accept only substraction of coordinates from the same dimension. We will see later if we should do more.' ].
@@ -91,7 +89,7 @@ GCoordinates >> - otherCoordinates [
 	^ self class newWithCoordinates: (otherCoordinates coordinatesWith: coordinates collect: [ :number2 :number1 | number1 - number2 ])
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GCoordinates >> / aNumber [
 	"Answer a Point that is the division of the receiver and arg."
 
@@ -100,7 +98,7 @@ GCoordinates >> / aNumber [
 	^ self class newWithCoordinates: (self coordinatesCollect: [ :number | number / aNumber ])
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GCoordinates >> = otherCoordinates [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -112,122 +110,122 @@ GCoordinates >> = otherCoordinates [
 	^ true
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GCoordinates >> asGPoint [
 	^ GPoint coordinates: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GCoordinates >> asGVector [
 	^ GVector coordinates: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> at: anInteger [
 	^ self coordinates at: anInteger
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> coordinates [
 	^ coordinates
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GCoordinates >> coordinatesCollect: aBlock [
 	^ coordinates collect: aBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GCoordinates >> coordinatesWith: aCollection collect: aBlock [
 	^ coordinates with: aCollection collect: aBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GCoordinates >> coordinatesWith: aCollection do: aBlock [
 	coordinates with: aCollection do: aBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GCoordinates >> fold: aBlock [
 	^ self coordinates fold: aBlock
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GCoordinates >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 	
 	^ coordinates hash negated "We negate to not have a collision with Array"
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GCoordinates >> initialize [
 	super initialize.
 	coordinates := Array new: self numberOfDimensions
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 GCoordinates >> initializeWith: anArray [
 	anArray size = self numberOfDimensions ifFalse: [ self error: 'The provided array must have the same size than my number of dimensions which is ' , self numberOfDimensions size asString ].
 
 	coordinates := anArray
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 GCoordinates >> inject: aSeed into: aBlock [
 	^ self coordinates inject: aSeed into: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> lowerLimitsWith: otherCoordinates [
 	^ self class newWithCoordinates: (self coordinatesWith: otherCoordinates coordinates collect: [ :number1 :number2 | number1 min: number2 ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> numberOfDimensions [
 	^ self class numberOfDimensions
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 GCoordinates >> postCopy [
 	super postCopy.
 	coordinates := coordinates copy
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GCoordinates >> printCoordinatesOn: aStream [
 	aStream << $(.
 	coordinates do: [ :number | aStream << number asString ] separatedBy: [ aStream << $, ].
 	aStream << $)
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GCoordinates >> printOn: aStream [
 	self printCoordinatesOn: aStream
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> upperLimitsWith: otherCoordinates [
 	^ self class newWithCoordinates: (self coordinatesWith: otherCoordinates coordinates collect: [ :number1 :number2 | number1 max: number2 ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> x [
 	^ coordinates at: 1
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> x: aNumber [
 	coordinates at: 1 put: aNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> y [
 	"Might return an error for 1D coordinates, but do they make sense?"
 
 	^ coordinates at: 2
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GCoordinates >> y: aNumber [
 	"Might return an error for 1D coordinates, but do they make sense?"
 

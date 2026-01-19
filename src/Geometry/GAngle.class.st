@@ -45,8 +45,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GAngle',
-	#superclass : 'GeometryObject',
+	#name : #GAngle,
+	#superclass : #GeometryObject,
 	#instVars : [
 		'radians'
 	],
@@ -56,17 +56,15 @@ Class {
 		'TwoPi',
 		'ZeroAngle'
 	],
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GAngle class >> degrees: anInteger [ 
 	^ self radians: anInteger degreesToRadians
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 GAngle class >> initialize [
 	TwoPi := 2π.
 	ZeroAngle := 0 rads.
@@ -74,49 +72,49 @@ GAngle class >> initialize [
 	StraightAngle := 1π rads
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GAngle class >> radians: aNumber [
 	^ self new
 		initializeWith: aNumber;
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GAngle class >> rads: aNumber [
 	^ self radians: aNumber
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> * anInteger [ 
 	^ anInteger multiplyWithAngle: self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> + aGAngle [ 
 	^ aGAngle addWithAngle: self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> - aGAngle [ 
 	^ aGAngle substractWithAngle: self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> / anInteger [ 
 	^ anInteger divideWithAngle: self
 ]
 
-{ #category : 'comparison' }
+{ #category : #comparison }
 GAngle >> < aGAngle [ 
 	^ self rads < aGAngle rads
 ]
 
-{ #category : 'comparison' }
+{ #category : #comparison }
 GAngle >> <= aGAngle [ 
 	^ (self > aGAngle) not
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GAngle >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -126,99 +124,99 @@ GAngle >> = anObject [
 	^ (radians - anObject rads) =~ 0 or: [ (radians - anObject rads) =~ TwoPi ]
 ]
 
-{ #category : 'comparison' }
+{ #category : #comparison }
 GAngle >> > aGAngle [ 
 	^ aGAngle < self
 ]
 
-{ #category : 'comparison' }
+{ #category : #comparison }
 GAngle >> >= aGAngle [ 
 	^ aGAngle <= self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> adaptToNumber: anInteger andSend: aString [ 
 	(#(#/ #+) anySatisfy: [ :forgivenSelector | aString = forgivenSelector ]) ifTrue: [ self error: 'Cannot execute ' , aString , ' on an Integer with an angle' ]. "I think we can do better than an if here but no time."
 	^ self perform: aString with: anInteger
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> addWithAngle: aGAngle [ 
 	^ (self rads + aGAngle rads) rads
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> cos [
 	^ self rads cos
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GAngle >> degreeNumber [
 	^ self rads radiansToDegrees
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GAngle >> explementary [
 	^ (0 - self rads) rads
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GAngle >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ radians hash
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GAngle >> initializeWith: aNumber [ 
 	radians := aNumber.
 	radians := radians \\ TwoPi.
 	radians negative ifTrue: [ radians := radians + TwoPi ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isAcute [
 	^ self > 0 rads and: [ self < RightAngle ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isObtuse [
 	^ self > RightAngle and: [ self < StraightAngle ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isReflex [
 	^ self > StraightAngle and: [ self rads < TwoPi ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isRight [
 	^ self = RightAngle
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isStraight [
 	^ self = StraightAngle
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GAngle >> isZero [
 	^ self = ZeroAngle
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> multiplyWithAngle: aGAngle [ 
 	self error: 'Not possible to multiply an angle by another angle'
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GAngle >> printOn: aStream [
 	aStream
 		nextPutAll: (self degreeNumber asString truncateTo: 10);
 		nextPutAll: '°'
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GAngle >> radianNumber [
 
 	self
@@ -227,7 +225,7 @@ GAngle >> radianNumber [
 	^ self rads
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GAngle >> radians [
 
 	self
@@ -236,22 +234,22 @@ GAngle >> radians [
 	^ self rads
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GAngle >> rads [
 	^ radians
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> sin [
 	^ self rads sin
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> substractWithAngle: aGAngle [ 
 	^ (aGAngle rads - self rads) rads
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GAngle >> tan [
 	^ self rads tan
 ]

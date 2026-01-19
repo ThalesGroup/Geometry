@@ -30,18 +30,16 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GSegment',
-	#superclass : 'G1DElement',
+	#name : #GSegment,
+	#superclass : #G1DElement,
 	#instVars : [
 		'v1',
 		'v2'
 	],
-	#category : 'Geometry-Elements',
-	#package : 'Geometry',
-	#tag : 'Elements'
+	#category : #'Geometry-Elements'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GSegment class >> with: aPoint1 with: aPoint2 [
 	^ self new
 		v1: aPoint1;
@@ -49,7 +47,7 @@ GSegment class >> with: aPoint1 with: aPoint2 [
 		yourself
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GSegment >> = aSegment [
 	self == aSegment ifTrue: [ ^ true ].
 	self class = aSegment class ifFalse: [ ^ false ].
@@ -58,24 +56,24 @@ GSegment >> = aSegment [
 		or: [ v1 =~ aSegment v2 and: [ v2 =~ aSegment v1 ] ]
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GSegment >> angleWith: aSegment [
 	^ self v1 - self v2 angleWith: aSegment v1 - aSegment v2
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> asGLine [
 	^ GLine through: v1 and: v2
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> distanceTo: aGPoint [
 
 	| ab ap t proj distance |
 
 	distance := SmallInteger maxVal.
 	ab := (v2 asPoint) - (v1 asPoint).
-	ab isZero ifTrue:[^distance].
+	ab isZero ifTrue:[ ^distance ].
 	ap := (aGPoint asPoint) - (v1 asPoint).
 	t := (ab dotProduct: ap) / (ab dotProduct: ab).
 	t := (t max: 0) min: 1.
@@ -89,86 +87,86 @@ GSegment >> distanceTo: aGPoint [
 	
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GSegment >> hash [
 	^ v1 hash bitXor: v2 hash
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> includes: aGPoint [
 	"The point is on the segment if the sum of the distance from v1 to aGPoint and the distance of a GPoint to v2 is my length"
 
 	^ (v2 distanceTo: aGPoint) + (aGPoint distanceTo: v1) =~ self length
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GSegment >> intersectionsWith: anElement [
 	^ anElement intersectionsWithSegment: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GSegment >> intersectionsWithEllipse: aGEllipse [ 
 	^ aGEllipse intersectionsWithSegment: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GSegment >> intersectionsWithLine: aLine [
 	^ aLine intersectionsWithSegment: self
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> length [
 	"The distance between two points is the length of the vector transposing v1 into v2"
 
 	^ (v2 - v1) length
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> midPoint [
 	^ ((v1 coordinates + v2 coordinates) / 2) asGPoint
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GSegment >> perpendicularBisector [
 	self flag: #todo.	"This is only for 2D. We should rely on GPoints to be able to do it for n-dimensions."
 
 	^ GLine a: v2 x - v1 x b: v2 y - v1 y c: (v1 x * v1 x - (v2 x * v2 x) + (v1 y * v1 y) - (v2 y * v2 y)) / 2
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 GSegment >> printOn: aStream [
 	v1 coordinates printOn: aStream.
 	aStream nextPutAll: '>-<'.
 	v2 coordinates printOn: aStream
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GSegment >> translateBy: aGVector [ 
 	v1 := v1 + aGVector.
 	v2 := v2 + aGVector
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GSegment >> v1 [
 	^ v1
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GSegment >> v1: aGPoint [
 	v1 := aGPoint asGPoint
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GSegment >> v2 [
 	^ v2
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GSegment >> v2: aGPoint [
 	v2 := aGPoint asGPoint
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 GSegment >> vertices [
 	^ { v1 . v2 }
 ]

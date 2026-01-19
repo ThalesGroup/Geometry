@@ -2,14 +2,12 @@
 I am a rectangle. See my parent for API
 "
 Class {
-	#name : 'GRectangle',
-	#superclass : 'GPolygon',
-	#category : 'Geometry-Shapes',
-	#package : 'Geometry',
-	#tag : 'Shapes'
+	#name : #GRectangle,
+	#superclass : #GPolygon,
+	#category : #'Geometry-Shapes'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GRectangle class >> left: left right: right top: top bottom: bottom [
 	"Answer an instance of me whose left, right, top, and bottom coordinates 
 	are determined by the arguments."
@@ -21,7 +19,7 @@ GRectangle class >> left: left right: right top: top bottom: bottom [
 	^ self origin: origin corner: corner
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GRectangle class >> origin: point1 corner: point2 [
 	"Answer an instance of me whose corners (top left and bottom right) are 
 	determined by the arguments."
@@ -35,7 +33,7 @@ GRectangle class >> origin: point1 corner: point2 [
 	^ self vertices: { or . (cor x , or y). cor. (or x , cor y) }
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GRectangle class >> vertices: aCollection [
 	| rectangle edges |
 	
@@ -50,27 +48,27 @@ GRectangle class >> vertices: aCollection [
 	^ rectangle
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> area [
 	"Answer the receiver's area, the product of width and height."
 
 	^ self width * self height max: 0
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> center [
 	"Answer the point at the center of the receiver."
 
 	^ self diagonals anyOne midPoint
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> diagonals [
 	^ {((self vertices at: 1) segment: (self vertices at: 3)).
 	((self vertices at: 2) segment: (self vertices at: 4))}
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> extent [
 	"Answer a vector representing the extent of my encompassing rectangle."
 
@@ -81,14 +79,14 @@ GRectangle >> extent [
 	^ (encompassingRectangleOrigin - encompassingRectangleCorner) asGVector
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> height [
 	"Answer the height of the receiver."
 
 	^ (self vertices at: 2) distanceTo: (self vertices at: 3)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRectangle >> width [
 	"Answer the width of the receiver."
 

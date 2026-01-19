@@ -4,17 +4,15 @@ I'm polygon builded on my vertices.
 
 "
 Class {
-	#name : 'GPolygon',
-	#superclass : 'GShape',
+	#name : #GPolygon,
+	#superclass : #GShape,
 	#instVars : [
 		'vertices'
 	],
-	#category : 'Geometry-Shapes',
-	#package : 'Geometry',
-	#tag : 'Shapes'
+	#category : #'Geometry-Shapes'
 }
 
-{ #category : 'public' }
+{ #category : #public }
 GPolygon class >> convexHullOn: aCollection [
 	| lastPoint nextPoint convexHull |
 	"self halt."
@@ -37,7 +35,7 @@ GPolygon class >> convexHullOn: aCollection [
 	^ self vertices: convexHull
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPolygon class >> newRegularPolygonWithEdgeNumber: aNumber [
 	"I return the polygon vertices for a regular polygon with a number of segment given as parameter.
 	
@@ -49,20 +47,20 @@ GPolygon class >> newRegularPolygonWithEdgeNumber: aNumber [
 	^ self newVertices: ((1 to: aNumber) collect: [ :index | ((encompassingCircleRadius + index) * angle) sin , ((encompassingCircleRadius + index) * angle) cos negated ])
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPolygon class >> newVertices: aCollection [
 	self deprecated: 'Use #vertices: instead' transformWith: '`@receiver newVertices: `@statements' -> '`@receiver vertices: `@statements'.
 	^ self vertices: aCollection
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPolygon class >> vertices: aCollection [
 	^ self new
 		vertices: aCollection;
 		yourself
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPolygon >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -72,12 +70,12 @@ GPolygon >> = anObject [
 	^ vertices = anObject vertices
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GPolygon >> boundaryContains: aGPoint [ 
 	^ self edges anySatisfy: [ :segment | segment includes: aGPoint ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPolygon >> edges [
 	| edges |
 	edges := (self vertices overlappingPairsCollect: [ :point1 :point2 | (GSegment with: point1 with: point2) ]) asOrderedCollection.
@@ -85,7 +83,7 @@ GPolygon >> edges [
 	^ edges
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPolygon >> encompassingRectangle [
 	| origin corner |
 	origin := ((self vertices collect: #coordinates) fold: [ :coor1 :coor2 | coor1 lowerLimitsWith: coor2 ]) asGPoint.
@@ -93,12 +91,12 @@ GPolygon >> encompassingRectangle [
 	^ GRectangle origin: origin corner: corner
 ]
 
-{ #category : 'rectangle functions' }
+{ #category : #'rectangle functions' }
 GPolygon >> expandBy: anInteger [
 	self fitInExtent: self extent + (2 * {anInteger . anInteger} asGVector)
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GPolygon >> fitInExtent: extent [
 	"I take as parameter a point and will fit the polygon in a rectangle whose dimensions is defined by the extent."
 
@@ -107,14 +105,14 @@ GPolygon >> fitInExtent: extent [
 	vertices := self vertices collect: [ :vertice | ((vertice - self center) coordinates coordinatesWith: scales collect: [ :a :b | a * b ]) asGVector + self center ]
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPolygon >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ vertices hash bitXor: self class hash
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GPolygon >> includes: aPoint [
 	" Thanks to Google and Randolph Franklin i don't have to reinvent this very simple algorithm. See [ 1 ] for details, copyrights etc.
 
@@ -137,27 +135,27 @@ GPolygon >> includes: aPoint [
 	^ inside
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPolygon >> intersectionsWith: anElement [
 	^ anElement intersectionsWithPolygon: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPolygon >> intersectionsWithEllipse: aGEllipse [
 	^ aGEllipse intersectionsWithPolygon: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPolygon >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithPolygon: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPolygon >> perimeter [
 	^ self edges sum: #length
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GPolygon >> scaleBy: anInteger [
 
 	anInteger <= 0 ifTrue: [ self error: 'Scale must be over zeo' ].
@@ -165,20 +163,20 @@ GPolygon >> scaleBy: anInteger [
 	vertices := self vertices collect: [ :vertice | (vertice - self center) * anInteger + self center ]
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GPolygon >> translateBy: aPoint [
 	"Move a polygon by a delta defined by aPoint"
 
 	vertices := self vertices collect: [ :point | point + aPoint ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPolygon >> vertices [
 	
 	^ vertices
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPolygon >> vertices: aCollection [
 	vertices := aCollection collect: #asGPoint
 ]

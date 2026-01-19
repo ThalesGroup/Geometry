@@ -29,19 +29,17 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GVector',
-	#superclass : 'GeometryObject',
+	#name : #GVector,
+	#superclass : #GeometryObject,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [
 		'coordinates'
 	],
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GVector class >> coordinates: aCoordinates [
 	(aCoordinates coordinates allSatisfy: [ :e | e = 0]) ifTrue: [ ^ GZeroVector coordinates: aCoordinates ].
 
@@ -50,32 +48,32 @@ GVector class >> coordinates: aCoordinates [
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GVector class >> withCollection: aCollection [
 	^ self coordinates: (GCoordinates withCollection: aCollection)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GVector class >> x: aNumber y: anotherNumber [
 	^ self coordinates: (G2DCoordinates x: aNumber y: anotherNumber)
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> * anOperand [
 	^ anOperand multiplyWithVector: self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> + anOperand [
 	^ anOperand additionWithVector: self
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> / aGVector [ 
 	self shouldBeImplemented.
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GVector >> = anotherPoint [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -85,17 +83,17 @@ GVector >> = anotherPoint [
 	^ coordinates = anotherPoint coordinates
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> adaptToNumber: anInteger andSend: aString [ 
 	^ self perform: aString with: anInteger
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> additionWithVector: aGVector [
 	^ (self coordinates + aGVector coordinates) asGVector
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> angleWith: aGVector [
 	| angle |
 	self flag: #todo.	"This implementation is only for 2D vectors. Later we should support it for n-dimension vectors."
@@ -106,22 +104,22 @@ GVector >> angleWith: aGVector [
 	^ (GMatrix rows: {self coordinates . aGVector coordinates}) determinant > 0 ifTrue: [ angle ] ifFalse: [ angle explementary ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GVector >> coordinates [
 	^ coordinates
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GVector >> coordinates: anObject [
 	coordinates := anObject
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> dotProduct: aGVector [
 	^ (self coordinatesWith: aGVector coordinates collect: [ :point1 :point2 | point1 * point2 ]) sum
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GVector >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
@@ -130,26 +128,26 @@ GVector >> hash [
 	^ coordHash squared + coordHash "Try to avoid collisions with GAbstractCoordinates and GPoint"
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GVector >> isZeroVector [
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GVector >> length [
 	"https://onlinemschool.com/math/library/vector/length/"
 
 	^ (self coordinates inject: 0 into: [ :res :number | res + number squared ]) sqrt
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> multiplyWithVector: aGVector [
 	"We should implement vector product later."
 	
 	self shouldBeImplemented
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GVector >> nonOrientedAngleWith: aGVector [
 	"angle = cos^-1 a . b / (|a| * |b|)"
 

@@ -40,19 +40,17 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GArc',
-	#superclass : 'G1DElement',
+	#name : #GArc,
+	#superclass : #G1DElement,
 	#instVars : [
 		'center',
 		'origin',
 		'angle'
 	],
-	#category : 'Geometry-Elements',
-	#package : 'Geometry',
-	#tag : 'Elements'
+	#category : #'Geometry-Elements'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GArc class >> center: aGPoint origin: anotherGPoint angle: aGAngle [
 	"Take three parameters to create a new arc:
 	- A point representing the center of the arc (center of the circle whose bond contains the arc circle)
@@ -66,7 +64,7 @@ GArc class >> center: aGPoint origin: anotherGPoint angle: aGAngle [
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GArc class >> center: aGPoint origin: anotherGPoint direction: yetAnotherGPoint [
 	"Take three parameters to create a new arc:
 	- A point representing the center of the arc (center of the circle whose bond contains the arc circle)
@@ -77,7 +75,7 @@ GArc class >> center: aGPoint origin: anotherGPoint direction: yetAnotherGPoint 
 	^ self center: aGPoint origin: anotherGPoint angle: (aGPoint - anotherGPoint angleWith: aGPoint - yetAnotherGPoint)
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GArc >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -87,48 +85,48 @@ GArc >> = anObject [
 	^ origin = anObject origin and: [ center = anObject center and: [ angle = anObject angle ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> angle [
 	^ angle
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> angle: anObject [
 	angle := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> center [
 	^ center
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> center: anObject [
 	center := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> centralAngle [
 	"Alias of angle to cover the geometric names"
 
 	^ self angle
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> endPoint [
 	"The end point is the point at the end of the arc (opposed to the origin)."
 
 	^ self origin rotatedBy: self angle about: self center
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GArc >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ origin hash bitXor: (center hash bitXor: angle hash)
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GArc >> includes: aGPoint [
 	"An arc includes a point in the angle between the vector defined by the origin and center and the vector defined by the point and the center is between 0 and the arc angle and if the distance of the point from the center is equals to the radius."
 
@@ -136,37 +134,37 @@ GArc >> includes: aGPoint [
 		and: [ (aGPoint distanceTo: self center) =~ self radius ]
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GArc >> intersectionsWith: anElement [
 	^ anElement intersectionsWithArc: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GArc >> intersectionsWithEllipse: aGEllipse [
 	^ aGEllipse intersectionsWithArc: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GArc >> intersectionsWithLine: aGLine [ 
 	^ aGLine intersectionsWithArc: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> length [
 	^ self angle rads * self radius
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> origin [
 	^ origin
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> origin: anObject [
 	origin := anObject
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GArc >> printOn: aStream [
 	super printOn: aStream.
 
@@ -181,12 +179,12 @@ GArc >> printOn: aStream [
 		<< $)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GArc >> radius [
 	^ (self origin - self center) length
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GArc >> translateBy: aGVector [ 
 	self center: self center + aGVector.
 	self origin: self origin + aGVector

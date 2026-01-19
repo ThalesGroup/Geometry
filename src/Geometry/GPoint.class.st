@@ -45,38 +45,36 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GPoint',
-	#superclass : 'G1DElement',
+	#name : #GPoint,
+	#superclass : #G1DElement,
 	#traits : 'TGWithCoordinates',
 	#classTraits : 'TGWithCoordinates classTrait',
 	#instVars : [
 		'coordinates'
 	],
-	#category : 'Geometry-Core',
-	#package : 'Geometry',
-	#tag : 'Core'
+	#category : #'Geometry-Core'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPoint class >> coordinates: aCoordinates [
 	^ self new
 		coordinates: aCoordinates;
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPoint class >> withCollection: aCollection [
 	^ self coordinates: (GCoordinates withCollection: aCollection)
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GPoint class >> x: aNumber y: anotherNumber [
 	^ self new
 		coordinates: (G2DCoordinates x: aNumber y: anotherNumber);
 		yourself
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GPoint >> + aGVector [
 	"I return a new point translated by a vector"
 
@@ -85,14 +83,14 @@ GPoint >> + aGVector [
 		yourself
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GPoint >> - aPoint [
 	"I return a vector represented by the substraction of two points"
 
 	^ (self coordinates - aPoint coordinates) asGVector
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPoint >> = anotherPoint [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -102,38 +100,38 @@ GPoint >> = anotherPoint [
 	^ coordinates = anotherPoint coordinates
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPoint >> =~ aPoint [
 	^ (self distanceTo: aPoint) =~ 0
 
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GPoint >> additionWithVector: aGVector [
 	^ self + aGVector
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GPoint >> asGPoint [
 	^ self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GPoint >> asPoint [
 	^ self x @ self y
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPoint >> coordinates [
 	^ coordinates
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPoint >> coordinates: anObject [
 	coordinates := anObject
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPoint >> distanceTo: aGPoint [ 
 	"Answer the distance between aPoint and the receiver.
 	
@@ -142,41 +140,41 @@ GPoint >> distanceTo: aGPoint [
 	^ (self - aGPoint) length
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GPoint >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ coordinates hash squared "Try to avoid collisions with GAbstractCoordinates"
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GPoint >> includes: aGPoint [
 	^ aGPoint =~ self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPoint >> intersectionsWith: anElement [
 	^ anElement intersectionsWithPoint: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPoint >> intersectionsWithEllipse: aGEllipse [ 
 	^ aGEllipse intersectionsWithPoint: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GPoint >> intersectionsWithLine: aGLine [ 
 	^ aGLine intersectionsWithPoint: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPoint >> length [
 	"https://math.stackexchange.com/questions/1936865/what-is-the-length-of-a-point-on-the-real-number-line"
 
 	^ 0
 ]
 
-{ #category : 'transformations' }
+{ #category : #transformations }
 GPoint >> rotateBy: aGAngle [
 	"Rotate the point around the origin (0,0) of the plan.
 	
@@ -187,7 +185,7 @@ GPoint >> rotateBy: aGAngle [
 	self rotateBy: aGAngle about: 0 , 0
 ]
 
-{ #category : 'transformations' }
+{ #category : #transformations }
 GPoint >> rotateBy: aGAngle about: aGPoint [
 	"Rotate the point around the another point of the plan.
 	
@@ -204,7 +202,7 @@ GPoint >> rotateBy: aGAngle about: aGPoint [
 	self y: sin * diffX + (cos * diffY) + aGPoint y
 ]
 
-{ #category : 'transformations' }
+{ #category : #transformations }
 GPoint >> rotatedBy: aGAngle [
 	"Rotate the point around the origin (0,0) of the plan.
 	
@@ -215,7 +213,7 @@ GPoint >> rotatedBy: aGAngle [
 	^ self rotatedBy: aGAngle about: 0 , 0
 ]
 
-{ #category : 'transformations' }
+{ #category : #transformations }
 GPoint >> rotatedBy: aGAngle about: aGPoint [
 	"Rotate the point around another point of the plan.
 	
@@ -231,12 +229,12 @@ GPoint >> rotatedBy: aGAngle about: aGPoint [
 	^ cos * diffX - (sin * diffY) + aGPoint x , (sin * diffX + (cos * diffY) + aGPoint y)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GPoint >> segment: aPoint [ 
 	^ GSegment with: self with: aPoint 
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GPoint >> translateBy: aVector [ 
 	"Answer a Point translated by a vector."
 

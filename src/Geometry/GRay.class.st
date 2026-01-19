@@ -28,18 +28,16 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : 'GRay',
-	#superclass : 'G1DElement',
+	#name : #GRay,
+	#superclass : #G1DElement,
 	#instVars : [
 		'initialPoint',
 		'directionPoint'
 	],
-	#category : 'Geometry-Elements',
-	#package : 'Geometry',
-	#tag : 'Elements'
+	#category : #'Geometry-Elements'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 GRay class >> origin: aGPoint direction: anotherPoint [
 	^ self new
 		initialPoint: aGPoint;
@@ -47,7 +45,7 @@ GRay class >> origin: aGPoint direction: anotherPoint [
 		yourself
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GRay >> = aRay [
 	self == aRay ifTrue: [ ^ true ].
 	self class = aRay class ifFalse: [ ^ false ].
@@ -55,78 +53,78 @@ GRay >> = aRay [
 	^ self initialPoint =~ aRay initialPoint and: [ (self angleWith: aRay) isZero ]
 ]
 
-{ #category : 'arithmetic' }
+{ #category : #arithmetic }
 GRay >> angleWith: aGRay [ 
 	^ (self directionPoint - self initialPoint) angleWith: (aGRay directionPoint - aGRay initialPoint)
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 GRay >> asGLine [
 	^ GLine through: self initialPoint and: self directionPoint
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRay >> directionPoint [
 	^ directionPoint 
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRay >> directionPoint: aGPoint [
 	directionPoint := aGPoint asGPoint
 ]
 
-{ #category : 'properties' }
+{ #category : #properties }
 GRay >> flipped [
 	^ self class origin: self initialPoint direction: initialPoint + (initialPoint - directionPoint)
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 GRay >> hash [
 	"We define the hash by its origin and the angle the ray has with the x axis."
 
 	^ self initialPoint hash bitXor: (self directionPoint - self initialPoint angleWith: {1 . 1} asGVector) hash
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 GRay >> includes: aPoint [
 	^ ((self directionPoint - self initialPoint) angleWith: (aPoint - self initialPoint)) isZero
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRay >> initialPoint [ 
 	^ initialPoint
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRay >> initialPoint: aGPoint [
 	initialPoint := aGPoint asGPoint
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GRay >> intersectionsWith: anElement [
 	^ anElement intersectionsWithRay: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GRay >> intersectionsWithEllipse: aGEllipse [	
 	^ aGEllipse intersectionsWithRay: self
 ]
 
-{ #category : 'intersections' }
+{ #category : #intersections }
 GRay >> intersectionsWithLine: aGLine [
 	^ aGLine intersectionsWithRay: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 GRay >> length [
 	"A ray is not finite."
 
 	^ Float infinity
 ]
 
-{ #category : 'transforming' }
+{ #category : #transforming }
 GRay >> translateBy: aGVector [ 
 	initialPoint := initialPoint + aGVector.
 	directionPoint := directionPoint + aGVector
