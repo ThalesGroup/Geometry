@@ -68,10 +68,23 @@ GSegment >> asGLine [
 
 { #category : #properties }
 GSegment >> distanceTo: aGPoint [
-	self flag: #todo.	"«The distance between segments and rays may not be the same as the distance between their extended lines. » http://geomalgorithms.com/a07-_distance.html
+
+	| ab ap t proj distance |
+
+	distance := SmallInteger maxVal.
+	ab := (v2 asPoint) - (v1 asPoint).
+	ab isZero ifTrue:[ ^distance ].
+	ap := (aGPoint asPoint) - (v1 asPoint).
+	t := (ab dotProduct: ap) / (ab dotProduct: ab).
+	t := (t max: 0) min: 1.
 	
-	So apparently this implementation is wrong."
-	^ self asGLine distanceTo: aGPoint
+	proj := (v1 asPoint) + (ab * t).
+	distance := (aGPoint asPoint) distanceTo: proj.
+	
+	^distance
+	
+	
+	
 ]
 
 { #category : #comparing }
